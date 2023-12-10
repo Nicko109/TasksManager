@@ -6,7 +6,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0">Добавить пост</h1>
+                    <h1 class="m-0">Добавить задачу</h1>
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
@@ -24,11 +24,11 @@
             <!-- Small boxes (Stat box) -->
             <div class="row">
                 <div class="col-lg-6 col-12">
-                    <form action="{{route('admin.posts.store')}}" method="post" enctype="multipart/form-data">
+                    <form action="{{route('admin.tasks.store')}}" method="post" enctype="multipart/form-data">
                         @csrf
                         <div class="form-group w-50">
                             <label for="title">Добавить название</label>
-                            <input type="text" class="form-control" placeholder="Название поста" name="title" id="title"
+                            <input type="text" class="form-control" placeholder="Название задачи" name="title" id="title"
                                    value="{{ old('title') }}"
                             >
                             @error('title')
@@ -36,17 +36,17 @@
                             @enderror
                         </div>
                         <div class="form-group">
-                            <label for="exampleInputFile">Добавить изображение</label>
+                            <label for="exampleInputFile">Добавить файл</label>
                             <div class="input-group">
                                 <div class="custom-file">
-                                    <input type="file" class="custom-file-input" name="image" id="exampleInputFile">
-                                    <label class="custom-file-label" for="exampleInputFile">Выберите изображение</label>
+                                    <input type="file" class="custom-file-input" name="file" id="exampleInputFile">
+                                    <label class="custom-file-label" for="exampleInputFile">Выберите файл</label>
                                 </div>
                                 <div class="input-group-append">
                                     <span class="input-group-text">Загрузка</span>
                                 </div>
                             </div>
-                            @error('image')
+                            @error('file')
                             <div class="text-danger">{{ $message }}</div>
                             @enderror
                         </div>
@@ -61,7 +61,7 @@
                             <input type="submit" class="btn btn-primary" value="Добавить">
                         </div>
                         <div class="mr-4">
-                            <a href="{{ route('admin.posts.index') }}" class="btn btn-primary">Назад</a>
+                            <a href="{{ route('admin.tasks.index') }}" class="btn btn-primary">Назад</a>
                         </div>
                     </form>
                 </div>

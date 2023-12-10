@@ -45,9 +45,9 @@ Route::get('/main', [\App\Http\Controllers\Main\Main\IndexController::class, 'in
 Route::resource('/projects', \App\Http\Controllers\Main\Project\ProjectController::class);
 
 
-Route::resource('/posts', \App\Http\Controllers\Main\Post\PostController::class);
-Route::post('/posts/{post}/comment', [\App\Http\Controllers\Main\Post\PostController::class, 'comment']);
-Route::get('/posts/{post}/comment', [\App\Http\Controllers\Main\Post\PostController::class, 'commentList']);
+Route::resource('/tasks', \App\Http\Controllers\Main\Task\TaskController::class);
+Route::post('/tasks/{task}/comment', [\App\Http\Controllers\Main\Task\TaskController::class, 'comment']);
+Route::get('/tasks/{task}/comment', [\App\Http\Controllers\Main\Task\TaskController::class, 'commentList']);
 
 });
 
@@ -67,7 +67,7 @@ Route::group([
     Route::get('/', [\App\Http\Controllers\Admin\Main\IndexController::class, 'index'])->name('main.index');
 
     Route::resource('/projects', \App\Http\Controllers\Admin\Project\ProjectController::class);
-    Route::resource('/posts', \App\Http\Controllers\Admin\Post\PostController::class);
+    Route::resource('/tasks', \App\Http\Controllers\Admin\Task\TaskController::class);
     Route::resource('/users', \App\Http\Controllers\Admin\User\UserController::class);
 });
 

@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin\Main;
 
 use App\Http\Controllers\Controller;
 use App\Models\Project;
-use App\Models\Post;
+use App\Models\Task;
 use App\Models\User;
 use App\Models\Video;
 use Illuminate\Http\Request;
@@ -16,7 +16,7 @@ class IndexController extends Controller
         $data = [];
 
         $data['usersCount'] = User::all()->count();
-        $data['postsCount'] = Post::all()->count();
+        $data['tasksCount'] = Task::all()->count();
         $data['projectsCount'] = Project::all()->count();
 
         return view('main.index',compact('data'));

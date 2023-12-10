@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Post;
+namespace App\Http\Requests\Task;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StorePostRequest extends FormRequest
+class UpdateTaskRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,7 +24,7 @@ class StorePostRequest extends FormRequest
         return [
             'title' => 'required|string',
             'content' => 'required|string',
-            'image' => 'nullable|file',
+            'file' => 'nullable',
         ];
     }
 
@@ -35,7 +35,6 @@ class StorePostRequest extends FormRequest
             'title.string' => 'Данные должны соответствовать строчному типу',
             'content.required' => 'Это поле необходимо для заполнения',
             'content.string' => 'Данные должны соответствовать строчному типу',
-            'image.file' => 'Необходимо выбрать файл',
         ];
     }
 }

@@ -1,7 +1,7 @@
 <template>
     <div class="max-w-screen-md w-full mx-auto">
         <div class="form-group mb-4">
-            <Link :href="route('posts.index')" class="inline-block bg-sky-600 px-3 py-2 text-white">Назад</Link>
+            <Link :href="route('tasks.index')" class="inline-block bg-sky-600 px-3 py-2 text-white">Назад</Link>
         </div>
         <div class="mb-4">
             <div class=" mb-3">
@@ -15,9 +15,9 @@
             <div class="mb-4">
                 <label for="file"></label>
                 <input @change="initFile" id="file" type="file">
-                <div v-if="errors.image" class="text-red-600 text-sm">{{ errors.image }}</div>
-                <div v-if="image" class="text-green-600 text-sm">
-                    {{post.image}}
+                <div v-if="errors.file" class="text-red-600 text-sm">{{ errors.file }}</div>
+                <div v-if="file" class="text-green-600 text-sm">
+                    {{task.file}}
                 </div>
 
             </div>
@@ -41,29 +41,29 @@ export default {
 
     components: {Link},
 
-    props: ['post', 'errors'],
+    props: ['task', 'errors'],
 
     data() {
         return {
-            title: this.post.title,
-            content: this.post.content,
-            image: this.post.image,
+            title: this.task.title,
+            content: this.task.content,
+            file: this.task.file,
         }
     },
 
     methods: {
 
         initFile(e) {
-            this.image = e.target.files[0]
+            this.file = e.target.files[0]
         },
 
         update() {
             let formData = new FormData();
             formData.append('title', this.title);
             formData.append('content', this.content);
-            formData.append('image', this.image);
+            formData.append('file', this.file);
             formData.append('_method', 'PATCH')
-            router.post(`/posts/${this.post.id}`,  formData,
+            router.post(`/tasks/${this.task.id}`,  formData,
                 { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } })
         }
     }

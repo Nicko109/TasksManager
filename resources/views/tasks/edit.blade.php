@@ -6,7 +6,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0">Редактировать пост</h1>
+                    <h1 class="m-0">Редактировать задачу</h1>
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
@@ -23,30 +23,30 @@
         <div class="container-fluid">
             <!-- Small boxes (Stat box) -->
             <div class="row">
-                <form action="{{route('admin.posts.update', $post->id)}}" method="post" enctype="multipart/form-data">
+                <form action="{{route('admin.tasks.update', $task->id)}}" method="post" enctype="multipart/form-data">
                     @csrf
                     @method('patch')
                     <div class="form-group w-50">
                         <label for="title">Редактировать название</label>
-                        <input type="text" class="form-control" placeholder="Название поста" name="title" id="title"
-                               value="{{ $post->title }}"
+                        <input type="text" class="form-control" placeholder="Название задачи" name="title" id="title"
+                               value="{{ $task->title }}"
                         >
                         @error('title')
                         <div class="text-danger">{{ $message }}</div>
                         @enderror
                     </div>
                     <div class="form-group">
-                        <label for="exampleInputFile">Редактировать изображение</label>
+                        <label for="exampleInputFile">Редактировать файл</label>
                         <div class="input-group">
                             <div class="custom-file">
-                                <input type="file" class="custom-file-input" name="image" value="{{$post->image}}">
-                                <label class="custom-file-label">{{$post->image}}</label>
+                                <input type="file" class="custom-file-input" name="file" value="{{$task->file}}">
+                                <label class="custom-file-label">{{$task->file}}</label>
                             </div>
                             <div class="input-group-append">
                                 <span class="input-group-text">Загрузка</span>
                             </div>
                         </div>
-                        @error('image')
+                        @error('file')
                         <div class="text-danger">{{ $message }}</div>
                         @enderror
                     </div>
@@ -54,7 +54,7 @@
                         <div>
                             <label for="content">Редактировать описание</label>
                         </div>
-                        <textarea id="content" name="content" rows="8" cols="80">{{ $post->content }}</textarea>
+                        <textarea id="content" name="content" rows="8" cols="80">{{ $task->content }}</textarea>
                         @error('content')
                         <div class="text-danger">{{ $message }}</div>
                         @enderror
@@ -63,7 +63,7 @@
                         <input type="submit" class="btn btn-success" value="Редактировать">
                     </div>
                     <div class="mr-4">
-                        <a href="{{ route('admin.posts.show', $post->id) }}" class="btn btn-primary">Назад</a>
+                        <a href="{{ route('admin.tasks.show', $task->id) }}" class="btn btn-primary">Назад</a>
                     </div>
                 </form>
             </div>

@@ -43,9 +43,9 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
-    public function posts()
+    public function tasks()
     {
-        return $this->hasMany(Post::class, 'user_id', 'id');
+        return $this->hasMany(Task::class, 'user_id', 'id');
     }
 
 
@@ -73,10 +73,6 @@ class User extends Authenticatable
         return $this->hasMany(Comment::class, 'user_id', 'id');
     }
 
-    public function projectComments()
-    {
-        return $this->hasMany(ProjectComment::class, 'user_id', 'id');
-    }
 
 
 

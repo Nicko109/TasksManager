@@ -4,7 +4,7 @@
             <Link :href="route('projects.index')" class="inline-block bg-sky-600 px-3 py-2 text-white">Проекты</Link>
         </div>
         <div class="form-group mb-4">
-            <Link :href="route('posts.index')" class="inline-block bg-green-600 px-3 py-2 text-white">Посты</Link>
+            <Link :href="route('tasks.index')" class="inline-block bg-green-600 px-3 py-2 text-white">Задачи</Link>
         </div>
         <div v-if="isAdmin" class="form-group mb-4">
             <a :href="route('admin.main.index')" class="inline-block bg-orange-600 px-3 py-2 text-white">Админ</a>

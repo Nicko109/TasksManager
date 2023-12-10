@@ -6,7 +6,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0">Посты</h1>
+                    <h1 class="m-0">Задача</h1>
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
@@ -24,13 +24,13 @@
             <!-- Small boxes (Stat box) -->
             <div class="row">
                 <div class="col-12">
+                    <!-- /.row --> <div class="mr-4 mb-4">
+                        <a href="{{ route('admin.tasks.index') }}" class="btn btn-primary">Назад</a>
+                    </div>
                     <div class="card">
-                        <div class="card-header">
-                            <a href="{{ route('admin.posts.create') }}" class="btn btn-primary">Добавить</a>
-                        </div>
 
                         <div class="card-body table-responsive p-0">
-                            <table class="table table-hover text-wrap">
+                            <table class="table table-hover text-nowrap">
                                 <thead>
                                 <tr>
                                     <th>ID</th>
@@ -39,13 +39,11 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                @foreach($posts as $post)
-                                    <tr>
-                                        <td>{{ $post->id }}</td>
-                                        <td><a href="{{ route('admin.posts.show', $post->id) }}">{{ $post->title }}</a></td>
-                                        <td>{{ $post->content }}</td>
-                                    </tr>
-                                @endforeach
+                                <tr>
+                                    <td>{{ $task->id }}</td>
+                                    <td class="text-wrap">{{ $task->title }}</td>
+                                    <td class="text-wrap">{{ $task->content }}</td>
+                                </tr>
                                 </tbody>
                             </table>
                         </div>
@@ -54,7 +52,17 @@
 
                 </div>
             </div>
-            <!-- /.row -->
+
+            <div class="card-header d-flex p-3">
+                <div class="mr-4">
+                    <a href="{{ route('admin.tasks.edit', $task->id) }}" class="btn btn-success">Редактировать</a>
+                </div>
+                <form action="{{ route('admin.tasks.destroy', $task->id) }}" method="task">
+                    @csrf
+                    @method('delete')
+                    <input type="submit" class="btn btn-danger" value="Удалить">
+                </form>
+            </div>
         </div><!-- /.container-fluid -->
     </section>
     <!-- /.content -->
