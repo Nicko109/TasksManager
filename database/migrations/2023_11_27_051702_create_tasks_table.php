@@ -14,9 +14,11 @@ return new class extends Migration
         Schema::create('tasks', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->text('content');
+            $table->dateTime('deadline');
             $table->foreignId('user_id')->nullable()->index()->constrained('users')->onDelete('cascade');
+            $table->foreignId('project_id')->nullable()->index()->constrained('projects');
             $table->string('file')->nullable();
+            $table->unsignedSmallInteger('status')->default(0);
             $table->timestamps();
             $table->softDeletes();
         });

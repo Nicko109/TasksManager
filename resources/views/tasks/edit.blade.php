@@ -26,38 +26,52 @@
                 <form action="{{route('admin.tasks.update', $task->id)}}" method="post" enctype="multipart/form-data">
                     @csrf
                     @method('patch')
-                    <div class="form-group w-50">
-                        <label for="title">Редактировать название</label>
-                        <input type="text" class="form-control" placeholder="Название задачи" name="title" id="title"
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Название задачи" name="title"
                                value="{{ $task->title }}"
                         >
                         @error('title')
                         <div class="text-danger">{{ $message }}</div>
                         @enderror
-                    </div>
-                    <div class="form-group">
-                        <label for="exampleInputFile">Редактировать файл</label>
-                        <div class="input-group">
-                            <div class="custom-file">
-                                <input type="file" class="custom-file-input" name="file" value="{{$task->file}}">
-                                <label class="custom-file-label">{{$task->file}}</label>
+                        <div class="form-group">
+                            <label>Дата выполнения</label>
+                            <div class="input-group">
+                                <input type="date" class="form-control" name="deadline"
+                                       value="{{ $task->deadline }}">
+                                @error('deadline')
+                                <div class="text-danger">{{ $message }}</div>
+                                @enderror
                             </div>
-                            <div class="input-group-append">
-                                <span class="input-group-text">Загрузка</span>
+                            <div class="form-group">
+                                <label for="exampleInputFile">Добавить файл</label>
+                                <div class="input-group">
+                                    <div class="custom-file">
+                                        <input type="file" class="custom-file-input" name="file">
+                                        <label class="custom-file-label">Выберите файл</label>
+                                    </div>
+                                    <div class="input-group-append">
+                                        <span class="input-group-text">Загрузка</span>
+                                    </div>
+                                </div>
+                                @error('file')
+                                <div class="text-danger">{{ $message }}</div>
+                                @enderror
                             </div>
+                            <div class="form-group">
+                                <label>Выберите проект</label>
+                                <select name="project_id" class="form-control">
+                                    @foreach($projects as $project)
+                                        <option value="{{ $project->id }}"
+                                                {{ $project->id == $task->project_id ? 'selected' : ''}}
+                                        >{{ $project->title }}</option>
+                                    @endforeach
+                                </select>
+                                @error('category_id')
+                                <div class="text-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
+                            <!-- /.input group -->
                         </div>
-                        @error('file')
-                        <div class="text-danger">{{ $message }}</div>
-                        @enderror
-                    </div>
-                    <div class="form-group">
-                        <div>
-                            <label for="content">Редактировать описание</label>
-                        </div>
-                        <textarea id="content" name="content" rows="8" cols="80">{{ $task->content }}</textarea>
-                        @error('content')
-                        <div class="text-danger">{{ $message }}</div>
-                        @enderror
                     </div>
                     <div class="form-group mt-3">
                         <input type="submit" class="btn btn-success" value="Редактировать">

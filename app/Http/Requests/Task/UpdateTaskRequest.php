@@ -23,8 +23,9 @@ class UpdateTaskRequest extends FormRequest
     {
         return [
             'title' => 'required|string',
-            'content' => 'required|string',
-            'file' => 'nullable',
+            'deadline' => 'required|date',
+            'file' => 'nullable|file',
+            'project_id' => 'required|exists:projects,id',
         ];
     }
 
@@ -33,8 +34,12 @@ class UpdateTaskRequest extends FormRequest
         return [
             'title.required' => 'Это поле необходимо для заполнения',
             'title.string' => 'Данные должны соответствовать строчному типу',
-            'content.required' => 'Это поле необходимо для заполнения',
-            'content.string' => 'Данные должны соответствовать строчному типу',
+            'deadline.required' => 'Это поле необходимо для заполнения',
+            'deadline.date' => 'Данные должны соответствовать типу даты',
+            'file.file' => 'Необходимо выбрать файл',
+            'project_id.required' => 'Это поле необходимо для заполнения',
+            'project_id.integer' => 'Id проекта должен быть числом',
+            'project_id.exists' => 'Id проекта должен быть в базе данных',
         ];
     }
 }

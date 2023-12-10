@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\Admin\Task;
 
 use App\Http\Controllers\Controller;
+use App\Models\Project;
 use App\Models\Task;
 use App\Http\Requests\Task\StoreTaskRequest;
 use App\Http\Requests\Task\UpdateTaskRequest;
+use App\Models\User;
 use App\Services\TaskService;
 use Illuminate\Support\Facades\Storage;
 use Mockery\Matcher\Not;
@@ -27,7 +29,9 @@ class TaskController extends Controller
      */
     public function create()
     {
-        return view('tasks.create');
+        $users = User::all();
+        $projects = Project::all();
+        return view('tasks.create', compact('users', 'projects'));
     }
 
     /**
@@ -55,7 +59,9 @@ class TaskController extends Controller
      */
     public function edit(Task $task)
     {
-        return view('tasks.edit', compact('task'));
+        $users = User::all();
+        $projects = Project::all();
+        return view('tasks.edit', compact('task', 'users', 'projects'));
     }
 
     /**

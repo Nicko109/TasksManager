@@ -28,10 +28,21 @@
                         @csrf
                         <div class="form-group w-50">
                             <label for="title">Добавить название</label>
-                            <input type="text" class="form-control" placeholder="Название задачи" name="title" id="title"
+                            <input type="text" class="form-control" placeholder="Название задачи" name="title"
+                                   id="title"
                                    value="{{ old('title') }}"
                             >
                             @error('title')
+                            <div class="text-danger">{{ $message }}</div>
+                            @enderror
+                        </div>
+                        <div class="form-group">
+                            <label>Время выполнения</label>
+                            <div class="input-group">
+                                <input type="datetime-local" class="form-control" name="deadline"
+                                       value="{{ old('deadline') }}">
+                            </div>
+                            @error('deadline')
                             <div class="text-danger">{{ $message }}</div>
                             @enderror
                         </div>
@@ -51,9 +62,28 @@
                             @enderror
                         </div>
                         <div class="form-group">
-                            <label for="content">Добавить описание</label>
-                            <textarea name="content" rows="8" cols="80" id="content">{{ old('content') }}</textarea>
-                            @error('content')
+                            <label>Выберите проект</label>
+                            <select name="project_id" class="form-control">
+                                @foreach($projects as $project)
+                                    <option value="{{ $project->id }}"
+                                            {{ $project->id == old('project_id') ? 'selected' : ''}}
+                                    >{{ $project->title }}</option>
+                                @endforeach
+                            </select>
+                            @error('project_id')
+                            <div class="text-danger">{{ $message }}</div>
+                            @enderror
+                        </div>
+                        <div class="form-group">
+                            <label>Выберите пользователя</label>
+                            <select name="user_id" class="form-control">
+                                @foreach($users as $user)
+                                    <option value="{{ $user->id }}"
+                                            {{ $user->id == old('user_id') ? 'selected' : ''}}
+                                    >{{ $user->name }}</option>
+                                @endforeach
+                            </select>
+                            @error('user_id')
                             <div class="text-danger">{{ $message }}</div>
                             @enderror
                         </div>

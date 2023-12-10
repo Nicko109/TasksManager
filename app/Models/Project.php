@@ -13,6 +13,11 @@ class Project extends Model
     protected $guarded = false;
     protected $table = 'projects';
 
+    public function tasks()
+    {
+        return $this->hasMany(Task::class, 'project_id', 'id');
+    }
+
     public function user()
     {
         return $this->belongsTo(User::class, 'user_id', 'id');
