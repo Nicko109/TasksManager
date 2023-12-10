@@ -68,9 +68,9 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{ route('admin.posts.index') }}" class="nav-link">
+                        <a href="{{ route('admin.tasks.index') }}" class="nav-link">
                             <i class="nav-icon far fa-image"></i>
-                            <p>Посты</p>
+                            <p>Задачи</p>
                         </a>
                     </li>
                     <li class="nav-item">

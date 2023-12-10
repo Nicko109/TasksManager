@@ -1,7 +1,7 @@
     <template>
         <div class="max-w-screen-md w-full mx-auto">
             <div class="form-group mb-4">
-                <Link :href="route('posts.index')" class="inline-block bg-sky-600 px-3 py-2 text-white">Назад</Link>
+                <Link :href="route('tasks.index')" class="inline-block bg-sky-600 px-3 py-2 text-white">Назад</Link>
             </div>
             <div class="mb-4">
                 <div class=" mb-3">
@@ -15,7 +15,7 @@
                 <div class="mb-4">
                     <label for="file"></label>
                     <input @change="initFile" id="file" type="file">
-                    <div v-if="errors.image" class="text-red-600 text-sm">{{ errors.image }}</div>
+                    <div v-if="errors.file" class="text-red-600 text-sm">{{ errors.file }}</div>
                 </div>
 
                 <div class="form-group mb-4">
@@ -46,21 +46,21 @@ export default {
         return {
             title: '',
             content: '',
-            image: null,
+            file: null,
         }
     },
 
     methods: {
 
         initFile(e) {
-            this.image = new FormData()
-            this.image.append('image', e.target.files[0])
+            this.file = new FormData()
+            this.file.append('file', e.target.files[0])
         },
 
         store() {
-            this.image.append('title',  this.title);
-            this.image.append('content',  this.content);
-            router.post('/posts', this.image)
+            this.file.append('title',  this.title);
+            this.file.append('content',  this.content);
+            router.post('/tasks', this.file)
         }
     }
 }

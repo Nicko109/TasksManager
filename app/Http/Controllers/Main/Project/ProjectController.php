@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Main\Project;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Post\CommentRequest;
+use App\Http\Requests\Task\CommentRequest;
 use App\Http\Resources\Comment\CommentResource;
 use App\Http\Resources\Project\ProjectResource;
 use App\Models\Project;

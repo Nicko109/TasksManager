@@ -15774,7 +15774,7 @@ var widgetsSortable = $.widget( "ui.sortable", $.ui.mouse, {
 			this._cacheHelperProportions();
 		}
 
-		//Post "activate" events to possible containers
+		//Task "activate" events to possible containers
 		if ( !noActivation ) {
 			for ( i = this.containers.length - 1; i >= 0; i-- ) {
 				this.containers[ i ]._trigger( "activate", event, this._uiHash( this ) );
@@ -15880,7 +15880,7 @@ var widgetsSortable = $.widget( "ui.sortable", $.ui.mouse, {
 			this.helper[ 0 ].style.top = this.position.top + "px";
 		}
 
-		//Post events to containers
+		//Task events to containers
 		this._contactContainers( event );
 
 		if ( this.innermostContainer !== null ) {
@@ -16026,7 +16026,7 @@ var widgetsSortable = $.widget( "ui.sortable", $.ui.mouse, {
 				this.currentItem.show();
 			}
 
-			//Post deactivating events to containers
+			//Task deactivating events to containers
 			for ( var i = this.containers.length - 1; i >= 0; i-- ) {
 				this.containers[ i ]._trigger( "deactivate", null, this._uiHash( this ) );
 				if ( this.containers[ i ].containerCache.over ) {
@@ -16992,7 +16992,7 @@ var widgetsSortable = $.widget( "ui.sortable", $.ui.mouse, {
 			}
 		}
 
-		//Post events to containers
+		//Task events to containers
 		function delayEvent( type, instance, container ) {
 			return function( event ) {
 				container._trigger( type, event, instance._uiHash( instance ) );

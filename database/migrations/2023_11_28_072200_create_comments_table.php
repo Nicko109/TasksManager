@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->text('body');
             $table->foreignId('user_id')->index()->constrained('users')->onDelete('cascade');
-            $table->foreignId('post_id')->index()->constrained('posts')->onDelete('cascade');
+            $table->foreignId('task_id')->index()->constrained('tasks')->onDelete('cascade');
             $table->timestamps();
             $table->softDeletes();
         });
