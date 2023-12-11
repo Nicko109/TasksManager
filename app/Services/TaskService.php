@@ -2,7 +2,7 @@
 
 namespace App\Services;
 
-use App\Models\LikedPost;
+
 use App\Models\Project;
 use App\Models\Task;
 use Illuminate\Support\Facades\Auth;
@@ -64,6 +64,31 @@ class TaskService
 
         // Возвращаем обновленные данные
         return $data;
+    }
+
+
+    public static function review(Task $task, array $data)
+    {
+        $task->status = 1;
+        $task->update($data);
+
+        return $task;
+    }
+
+    public static function complete(Task $task, array $data)
+    {
+        $task->status = 2;
+        $task->update($data);
+
+        return $task;
+    }
+
+    public static function work(Task $task, array $data)
+    {
+        $task->status = 0;
+        $task->update($data);
+
+        return $task;
     }
 
 }

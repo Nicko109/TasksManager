@@ -58,6 +58,12 @@ Route::group([
     Route::resource('/comments', \App\Http\Controllers\Admin\Comment\CommentController::class);
     Route::resource('/projects', \App\Http\Controllers\Admin\Project\ProjectController::class);
     Route::resource('/tasks', \App\Http\Controllers\Admin\Task\TaskController::class);
+    Route::patch('/tasks/{task}/review', [\App\Http\Controllers\Admin\Task\TaskController::class, 'review'])
+        ->name('tasks.review');
+    Route::patch('/tasks/{task}/complete', [\App\Http\Controllers\Admin\Task\TaskController::class, 'complete'])
+        ->name('tasks.complete');
+    Route::patch('/tasks/{task}/work', [\App\Http\Controllers\Admin\Task\TaskController::class, 'work'])
+        ->name('tasks.work');
     Route::resource('/users', \App\Http\Controllers\Admin\User\UserController::class);
 
 });

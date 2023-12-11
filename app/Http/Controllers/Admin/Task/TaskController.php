@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin\Task;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Task\ReviewTaskRequest;
 use App\Models\Comment;
 use App\Models\Project;
 use App\Models\Task;
@@ -92,11 +93,32 @@ class TaskController extends Controller
 
     }
 
-    public function comments()
-    {
-        $comments = Comment::all();
 
-        return view('tasks.comments', compact('comments'));
+    public function review(ReviewTaskRequest $request, Task $task)
+    {
+        $data = $request->validated();
+
+        TaskService::review($task, $data);
+
+        return redirect()->route('admin.tasks.show', compact('task'));
+    }
+
+    public function complete(ReviewTaskRequest $request, Task $task)
+    {
+        $data = $request->validated();
+
+        TaskService::complete($task, $data);
+
+        return redirect()->route('admin.tasks.show', compact('task'));
+    }
+
+    public function work(ReviewTaskRequest $request, Task $task)
+    {
+        $data = $request->validated();
+
+        TaskService::work($task, $data);
+
+        return redirect()->route('admin.tasks.show', compact('task'));
     }
 
 }
