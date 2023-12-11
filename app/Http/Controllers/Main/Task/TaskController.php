@@ -12,6 +12,7 @@ use App\Models\Comment;
 use App\Models\LikedPost;
 use App\Models\Project;
 use App\Models\Task;
+use App\Models\User;
 use App\Services\TaskService;
 use Illuminate\Http\Request;
 
@@ -25,8 +26,17 @@ class TaskController extends Controller
         $this->authorize('viewAny', Task::class);
 
         $tasks = TaskService::index();
+
+        $tasks->each(function ($task) {
+            $task->formattedDeadline = $task->getFormattedDeadlineAttribute();
+            $user = $task->user;
+            $performer = $task->performer;
+            $project = $task->project;
+        });
+
         $isAdmin = auth()->user()->is_admin;
-        $tasks = TaskResource::collection($tasks)->resolve();
+
+
 
         return inertia('Task/Index', compact('tasks', 'isAdmin'));
 
@@ -38,7 +48,9 @@ class TaskController extends Controller
     public function create()
     {
         $this->authorize('create', Task::class);
-        return inertia('Task/Create');
+        $users = User::all();
+        $projects = Project::all();
+        return inertia('Task/Create', compact('users', 'projects'));
     }
 
     /**
@@ -62,9 +74,12 @@ class TaskController extends Controller
         $this->authorize('view', $task);
 
         $isAdmin = auth()->user()->is_admin;
-        $task = TaskResource::make($task)->resolve();
+        $task->formattedDeadline = $task->getFormattedDeadlineAttribute();
+        $user = $task->user;
+        $performer = $task->performer;
+        $project = $task->project;
 
-        return inertia('Task/Show', compact('task', 'isAdmin'));
+        return inertia('Task/Show', compact('task', 'isAdmin', 'user', 'performer', 'project'));
     }
 
     /**
@@ -73,9 +88,10 @@ class TaskController extends Controller
     public function edit(Task $task)
     {
         $this->authorize('update', $task);
-        $task = TaskResource::make($task)->resolve();
+        $users = User::all();
+        $projects = Project::all();
 
-        return inertia('Task/Edit', compact('task'));
+        return inertia('Task/Edit', compact('task', 'users', 'projects'));
     }
 
     /**
@@ -87,7 +103,7 @@ class TaskController extends Controller
         $data = $request->validated();
 
 
-        $data = TaskService::updateImage($task, $data);
+        $data = TaskService::updateFile($task, $data);
         TaskService::update($task, $data);
 
         return redirect()->route('tasks.show', compact('task'));

@@ -21,6 +21,7 @@ class TaskService
         $path = Storage::disk('public')->put('task' , $data['file']);
         $fullPath = Storage::disk('public')->url($path);
         $data['file'] = $fullPath;
+        $data['user_id'] = auth()->user()->id;
         return Task::create($data);
     }
 
@@ -39,7 +40,7 @@ class TaskService
         return $task->delete();
     }
 
-    public static function updateImage(Task $task, array $data)
+    public static function updateFile(Task $task, array $data)
     {
         // Проверяем, предоставлен ли новый файл изображения
         if (isset($data['file']) && $data['file'] instanceof \Illuminate\Http\UploadedFile) {

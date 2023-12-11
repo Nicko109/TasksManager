@@ -35,7 +35,10 @@
                                 <tr>
                                     <th>ID</th>
                                     <th>Наименование</th>
-                                    <th>Описание</th>
+                                    <th>Дата Выполнения</th>
+                                    <th>Заказчик</th>
+                                    <th>Исполнитель</th>
+                                    <th>Проект</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -43,7 +46,10 @@
                                     <tr>
                                         <td>{{ $task->id }}</td>
                                         <td><a href="{{ route('admin.tasks.show', $task->id) }}">{{ $task->title }}</a></td>
-                                        <td>{{ $task->content }}</td>
+                                        <td class="text-wrap">{{ $task->formattedDeadline }}</td>
+                                        <td class="text-wrap">{{ $task->user->name }}</td>
+                                        <td class="text-wrap">{{ $task->performer->name }}</td>
+                                        <td class="text-wrap">{{ $task->project->title }}</td>
                                     </tr>
                                 @endforeach
                                 </tbody>

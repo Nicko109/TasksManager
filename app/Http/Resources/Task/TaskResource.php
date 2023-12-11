@@ -17,10 +17,11 @@ class TaskResource extends JsonResource
         return [
             'id' => $this->id,
             'title' => $this->title,
-            'content' => $this->content,
             'file' => $this->file,
             'date' => $this->created_at->diffForHumans(),
-            'comments_count' => $this->comments_count
+            'deadline' => $this->formattedDeadline,
+            'comments_count' => $this->comments_count,
+
         ];
     }
 }

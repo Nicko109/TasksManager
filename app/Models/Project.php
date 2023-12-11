@@ -23,4 +23,9 @@ class Project extends Model
         return $this->belongsTo(User::class, 'user_id', 'id');
     }
 
+    public function performer()
+    {
+        return $this->belongsTo(User::class, 'performer_id', 'id');
+    }
+
 }

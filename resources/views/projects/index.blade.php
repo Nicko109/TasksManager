@@ -35,6 +35,8 @@
                                 <tr>
                                     <th>ID</th>
                                     <th>Наименование</th>
+                                    <th>Заказчик</th>
+                                    <th>Исполнитель</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -42,6 +44,8 @@
                                     <tr>
                                         <td>{{ $project->id }}</td>
                                         <td><a  href="{{ route('admin.projects.show', $project->id) }}">{{ $project->title }}</a></td>
+                                        <td>{{ $project->user->name }}</td>
+                                        <td>{{ $project->performer->name }}</td>
                                     </tr>
                                 @endforeach
                                 </tbody>

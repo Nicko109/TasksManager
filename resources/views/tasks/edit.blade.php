@@ -36,7 +36,7 @@
                         <div class="form-group">
                             <label>Дата выполнения</label>
                             <div class="input-group">
-                                <input type="date" class="form-control" name="deadline"
+                                <input type="datetime-local" class="form-control" name="deadline"
                                        value="{{ $task->deadline }}">
                                 @error('deadline')
                                 <div class="text-danger">{{ $message }}</div>
@@ -46,8 +46,8 @@
                                 <label for="exampleInputFile">Добавить файл</label>
                                 <div class="input-group">
                                     <div class="custom-file">
-                                        <input type="file" class="custom-file-input" name="file">
-                                        <label class="custom-file-label">Выберите файл</label>
+                                        <input type="file" class="custom-file-input" name="file" value="{{$task->file }}">
+                                        <label class="custom-file-label">{{$task->file }}</label>
                                     </div>
                                     <div class="input-group-append">
                                         <span class="input-group-text">Загрузка</span>
@@ -70,9 +70,23 @@
                                 <div class="text-danger">{{ $message }}</div>
                                 @enderror
                             </div>
+                            <div class="form-group">
+                                <label>Выберите исполнителя</label>
+                                <select name="performer_id" class="form-control">
+                                    @foreach($users as $user)
+                                        <option value="{{ $user->id }}"
+                                            {{ $user->id == $task->performer_id ? 'selected' : ''}}
+                                        >{{ $user->name }}</option>
+                                    @endforeach
+                                </select>
+                                @error('performer_id')
+                                <div class="text-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
                             <!-- /.input group -->
                         </div>
                     </div>
+
                     <div class="form-group mt-3">
                         <input type="submit" class="btn btn-success" value="Редактировать">
                     </div>

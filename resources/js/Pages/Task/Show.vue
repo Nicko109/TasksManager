@@ -3,9 +3,15 @@
         <div class="form-group mb-4">
             <Link :href="route('tasks.index')" class="inline-block bg-sky-600 px-3 py-2 text-white">Назад</Link>
         </div>
-        <h1 style="word-break: break-word;" class="pb-4 text-xl">{{task.title}}</h1>
-        <div class="pb-4"><img class="w-50 h-80 object-cover" :src="task.image" :alt="task.id"></div>
-        <p style="word-break: break-word;" class="pb-4">{{task.content}}</p>
+        <div class="card">
+            <div class="card-body table-responsive p-0">
+                <p><b>Наименование задачи:</b> {{ task.title }}</p>
+                <p><b>Дата выполнения:</b> {{ task.formattedDeadline }}</p>
+                <p v-if="task.file"><b>Документы:</b> {{ task.file }}</p>
+                <p><b>Заказчик:</b> {{ user.name }}</p>
+                <p><b>Исполнитель:</b> {{ performer.name }}</p>
+                <p><b>Наименование проекта:</b> {{ project.title }}</p>
+            </div>
         <div class="flex justify-between items-center mt-2">
             <p class="text-right text-sm text-slate-500">{{task.date}}</p>
         </div>
@@ -20,6 +26,7 @@
                     <p class="text-right text-sm text-slate-500">{{ comment.date }}</p>
                 </div>
             </div>
+        </div>
         </div>
         <div class="mt-4">
             <div class=" mb-3">
@@ -49,7 +56,7 @@ import axios from "axios";
 export default {
     name: "Show",
 
-    props:['task', "isAdmin"],
+    props:['task', "isAdmin", 'user', 'performer', 'project'],
     data() {
         return {
             body: '',

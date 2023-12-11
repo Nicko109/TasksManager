@@ -34,12 +34,16 @@
                                 <tr>
                                     <th>ID</th>
                                     <th>Наименование</th>
+                                    <th>Заказчик</th>
+                                    <th>Исполнитель</th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                 <tr>
                                     <td>{{ $project->id }}</td>
                                     <td class="text-wrap">{{ $project->title }}</td>
+                                    <td class="text-wrap">{{ $project->user->name }}</td>
+                                    <td class="text-wrap">{{ $project->performer->name }}</td>
                                 </tr>
                                 </tbody>
                             </table>

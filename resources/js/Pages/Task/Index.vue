@@ -6,10 +6,13 @@
         </div>
         <div class="mb-6 pb-6 border-b border-gray-400" v-for="task in tasks">
             <Link :href="route('tasks.show', task.id)">
-                <h1 class="pb-4 text-xl link-text">{{ task.title }}</h1>
+                <h1 class="pb-4 text-xl link-text"><b>Наименование задачи:</b> {{ task.title }}</h1>
             </Link>
-            <div class="pb-4"> <img class="w-50 h-80 object-cover" :src="task.image" :alt="task.id"></div>
-            <p class="pb-4" style="word-break: break-word;">{{ task.content }}</p>
+            <p><b>Дата выполнения:</b> {{ task.formattedDeadline }}</p>
+            <p v-if="task.file"><b>Документы:</b> {{ task.file }}</p>
+            <p><b>Заказчик:</b> {{ task.user.name }}</p>
+            <p><b>Исполнитель:</b> {{ task.performer.name }}</p>
+            <p><b>Наименование проекта:</b> {{ task.project.title }}</p>
             <div class="flex justify-between items-center mt-2">
                 <p class="text-right text-sm text-slate-500">{{ task.date }}</p>
             </div>

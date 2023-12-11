@@ -17,6 +17,8 @@ class ProjectResource extends JsonResource
         return [
             'id' => $this->id,
             'title' => $this->title,
+            'user_id' => $this->user_id,
+            'performer_id' => $this->performer_id,
             'date' => $this->created_at->diffForHumans(),
         ];
     }

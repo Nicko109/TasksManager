@@ -6,9 +6,10 @@
         </div>
         <div class="mb-6 pb-6 border-b border-gray-400" v-for="project in projects" :key="project.id">
             <Link :href="route('projects.show', project.id)">
-                <h1 style="word-break: break-word;" class="pb-4 text-xl link-text">{{ project.title }}</h1>
+                <h1 class="pb-4 text-xl link-text"><b>Наименование проекта:</b> {{ project.title }}</h1>
             </Link>
-            <p class="pb-4">{{ project.content }}</p>
+            <p><b>Заказчик:</b> {{ project.user.name }}</p>
+            <p><b>Исполнитель:</b> {{ project.performer.name }}</p>
             <div class="flex justify-between items-center mt-2">
                 <p class="text-right text-sm text-slate-500">{{ project.date }}</p>
             </div>

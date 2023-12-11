@@ -10,6 +10,7 @@ use App\Models\Project;
 use App\Http\Requests\Project\StoreProjectRequest;
 use App\Http\Requests\Project\UpdateProjectRequest;
 use App\Models\ProjectComment;
+use App\Models\User;
 use App\Services\ProjectService;
 use Mockery\Matcher\Not;
 
@@ -23,8 +24,10 @@ class ProjectController extends Controller
         $this->authorize('viewAny', Project::class);
         $projects = ProjectService::index();
 
-        $projects = ProjectResource::collection($projects)->resolve();
-
+        $projects->each(function ($project) {
+            $user = $project->user;
+            $performer = $project->performer;
+        });
         $isAdmin = auth()->user()->is_admin;
 
         return inertia('Project/Index', compact('projects', 'isAdmin'));
@@ -36,7 +39,8 @@ class ProjectController extends Controller
     public function create()
     {
         $this->authorize('create', Project::class);
-        return inertia('Project/Create');
+        $users = User::all();
+        return inertia('Project/Create', compact('users'));
     }
 
     /**
@@ -59,12 +63,13 @@ class ProjectController extends Controller
     {
         $this->authorize('view', $project);
 
-        $project = ProjectResource::make($project)->resolve();
+        $user = $project->user;
+        $performer = $project->performer;
 
         $isAdmin = auth()->user()->is_admin;
 
 
-        return inertia('Project/Show', compact('project', 'isAdmin'));
+        return inertia('Project/Show', compact('project', 'isAdmin', 'performer', 'user'));
     }
 
     /**
@@ -73,8 +78,9 @@ class ProjectController extends Controller
     public function edit(Project $project)
     {
         $this->authorize('update', $project);
-        $project = ProjectResource::make($project)->resolve();
-        return inertia('Project/Edit', compact('project'));
+        $users = User::all();
+
+        return inertia('Project/Edit', compact('project', 'users'));
     }
 
     /**

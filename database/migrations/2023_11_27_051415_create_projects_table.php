@@ -13,8 +13,9 @@ return new class extends Migration
     {
         Schema::create('projects', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
+            $table->string('title')->unique();
             $table->foreignId('user_id')->nullable()->index()->constrained('users')->onDelete('cascade');
+            $table->foreignId('performer_id')->nullable()->index()->constrained('users')->onDelete('cascade');
             $table->timestamps();
             $table->softDeletes();
 

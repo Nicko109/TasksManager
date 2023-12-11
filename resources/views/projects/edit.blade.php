@@ -6,7 +6,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0">Редактировать заметку</h1>
+                    <h1 class="m-0">Редактировать проект</h1>
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
@@ -31,6 +31,19 @@
                             <input type="text" class="form-control" placeholder="Название проекта" name="title"  value="{{ $project->title }}">
                             @error('title')
                             <div class="text-danger">Это поле необходимо для заполнения</div>
+                            @enderror
+                        </div>
+                        <div class="form-group">
+                            <label>Выберите исполнителя</label>
+                            <select name="performer_id" class="form-control">
+                                @foreach($users as $user)
+                                    <option value="{{ $user->id }}"
+                                        {{ $user->id == $project->performer_id ? 'selected' : ''}}
+                                    >{{ $user->name }}</option>
+                                @endforeach
+                            </select>
+                            @error('performer_id')
+                            <div class="text-danger">{{ $message }}</div>
                             @enderror
                         </div>
                         <div class="form-group mt-3">

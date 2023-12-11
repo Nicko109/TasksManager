@@ -3,7 +3,11 @@
         <div class="form-group mb-4">
             <Link :href="route('projects.index')" class="inline-block bg-sky-600 px-3 py-2 text-white">Назад</Link>
         </div>
-        <h1 style="word-break: break-word;" class="pb-4 text-xl">{{project.title}}</h1>
+        <div class="card-body table-responsive p-0">
+            <p><b>Наименование проекта:</b> {{ project.title }}</p>
+            <p><b>Заказчик:</b> {{ user.name }}</p>
+            <p><b>Исполнитель:</b> {{ performer.name }}</p>
+        </div>
         <div class="flex justify-between items-center mt-2">
             <p class="text-right text-sm text-slate-500">{{project.date}}</p>
         </div>
@@ -27,7 +31,7 @@ import axios from "axios";
 export default {
     name: "Show",
 
-    props:['project', "isAdmin"],
+    props:['project', "isAdmin", 'user', 'performer'],
     data() {
         return {
             errors: [],

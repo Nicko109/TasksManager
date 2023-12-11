@@ -24,8 +24,9 @@ class UpdateTaskRequest extends FormRequest
         return [
             'title' => 'required|string',
             'deadline' => 'required|date',
-            'file' => 'nullable|file',
+            'file' => 'nullable',
             'project_id' => 'required|exists:projects,id',
+            'performer_id' => 'required|exists:users,id',
         ];
     }
 

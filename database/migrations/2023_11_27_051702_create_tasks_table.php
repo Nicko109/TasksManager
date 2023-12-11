@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('title');
             $table->dateTime('deadline');
             $table->foreignId('user_id')->nullable()->index()->constrained('users')->onDelete('cascade');
+            $table->foreignId('performer_id')->nullable()->index()->constrained('users')->onDelete('cascade');
             $table->foreignId('project_id')->nullable()->index()->constrained('projects');
             $table->string('file')->nullable();
             $table->unsignedSmallInteger('status')->default(0);

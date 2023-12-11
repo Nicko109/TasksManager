@@ -11,8 +11,7 @@ class ProjectService
 {
     public static function index()
     {
-        $projects = Project::all();
-
+        $projects = Project::latest()->get();
 
         return $projects;
     }
@@ -22,6 +21,7 @@ class ProjectService
 
     public static function store(array $data) : Project
     {
+        $data['user_id'] = auth()->user()->id;
         return Project::create($data);
     }
 

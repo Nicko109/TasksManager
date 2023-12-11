@@ -75,15 +75,15 @@
                             @enderror
                         </div>
                         <div class="form-group">
-                            <label>Выберите пользователя</label>
-                            <select name="user_id" class="form-control">
+                            <label>Выберите исполнителя</label>
+                            <select name="performer_id" class="form-control">
                                 @foreach($users as $user)
                                     <option value="{{ $user->id }}"
-                                            {{ $user->id == old('user_id') ? 'selected' : ''}}
+                                            {{ $user->id == old('performer_id') ? 'selected' : ''}}
                                     >{{ $user->name }}</option>
                                 @endforeach
                             </select>
-                            @error('user_id')
+                            @error('performer_id')
                             <div class="text-danger">{{ $message }}</div>
                             @enderror
                         </div>
