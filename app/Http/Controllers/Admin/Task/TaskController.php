@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin\Task;
 
 use App\Http\Controllers\Controller;
+use App\Models\Comment;
 use App\Models\Project;
 use App\Models\Task;
 use App\Http\Requests\Task\StoreTaskRequest;
@@ -71,7 +72,7 @@ class TaskController extends Controller
     {
         $data = $request->validated();
 
-        $data = TaskService::updateImage($task, $data);
+        $data = TaskService::updateFile($task, $data);
 
 
         TaskService::update($task, $data);
@@ -90,4 +91,12 @@ class TaskController extends Controller
         return redirect()->route('admin.tasks.index');
 
     }
+
+    public function comments()
+    {
+        $comments = Comment::all();
+
+        return view('tasks.comments', compact('comments'));
+    }
+
 }

@@ -32,7 +32,7 @@
                             <p>Проекты</p>
                         </div>
                         <div class="icon">
-                            <i class="ion ion-bag"></i>
+                            <i class="nav-icon fas fa-th-list"></i>
                         </div>
                         <a href="{{ route('admin.projects.index') }}" class="small-box-footer">Подробнее <i class="fas fa-arrow-circle-right"></i></a>
                     </div>
@@ -47,9 +47,23 @@
                             <p>Задачи</p>
                         </div>
                         <div class="icon">
-                            <i class="ion ion-stats-bars"></i>
+                            <i class="nav-icon fas fa-th-list"></i>
                         </div>
                         <a href="{{ route('admin.tasks.index') }}" class="small-box-footer">Подробнее <i class="fas fa-arrow-circle-right"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-6">
+                    <!-- small box -->
+                    <div class="small-box bg-warning">
+                        <div class="inner">
+                            <h3>{{$data['commentsCount']}}</h3>
+
+                            <p>Комментарии</p>
+                        </div>
+                        <div class="icon">
+                            <i class="nav-icon far fa-clipboard"></i>
+                        </div>
+                        <a href="{{ route('admin.comments.index') }}" class="small-box-footer">Подробнее <i class="fas fa-arrow-circle-right"></i></a>
                     </div>
                 </div>
                 <!-- ./col -->
@@ -63,7 +77,7 @@
                             <p>Пользователи</p>
                         </div>
                         <div class="icon">
-                            <i class="ion ion-pie-graph"></i>
+                            <i class="nav-icon fas fa-users"></i>
                         </div>
                         <a href="{{ route('admin.users.index') }}" class="small-box-footer">Подробнее <i class="fas fa-arrow-circle-right"></i></a>
                     </div>

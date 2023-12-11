@@ -63,14 +63,20 @@
                 <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                     <li class="nav-item">
                         <a href="{{ route('admin.projects.index') }}" class="nav-link">
-                            <i class="nav-icon fas fa-clipboard"></i>
+                            <i class="nav-icon fas fa-th-list"></i>
                             <p>Проекты</p>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a href="{{ route('admin.tasks.index') }}" class="nav-link">
-                            <i class="nav-icon far fa-image"></i>
+                            <i class="nav-icon fas fa-th-list"></i>
                             <p>Задачи</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('admin.comments.index') }}" class="nav-link">
+                            <i class="nav-icon far fa-clipboard"></i>
+                            <p>Комментарии</p>
                         </a>
                     </li>
                     <li class="nav-item">

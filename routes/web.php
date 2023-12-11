@@ -36,27 +36,17 @@ Route::middleware('auth')->group(function () {
 });
 
 
-
-
-
 Route::middleware('auth')->group(function () {
-Route::get('/main', [\App\Http\Controllers\Main\Main\IndexController::class, 'index'])->name('main.index');
+    Route::get('/main', [\App\Http\Controllers\Main\Main\IndexController::class, 'index'])->name('main.index');
 
-Route::resource('/projects', \App\Http\Controllers\Main\Project\ProjectController::class);
+    Route::resource('/projects', \App\Http\Controllers\Main\Project\ProjectController::class);
 
 
-Route::resource('/tasks', \App\Http\Controllers\Main\Task\TaskController::class);
-Route::post('/tasks/{task}/comment', [\App\Http\Controllers\Main\Task\TaskController::class, 'comment']);
-Route::get('/tasks/{task}/comment', [\App\Http\Controllers\Main\Task\TaskController::class, 'commentList']);
+    Route::resource('/tasks', \App\Http\Controllers\Main\Task\TaskController::class);
+    Route::post('/tasks/{task}/comment', [\App\Http\Controllers\Main\Task\TaskController::class, 'comment']);
+    Route::get('/tasks/{task}/comment', [\App\Http\Controllers\Main\Task\TaskController::class, 'commentList']);
 
 });
-
-
-
-
-
-
-
 
 
 Route::group([
@@ -65,10 +55,12 @@ Route::group([
     'middleware' => ['auth', 'admin.check'],
 ], function () {
     Route::get('/', [\App\Http\Controllers\Admin\Main\IndexController::class, 'index'])->name('main.index');
-
+    Route::resource('/comments', \App\Http\Controllers\Admin\Comment\CommentController::class);
     Route::resource('/projects', \App\Http\Controllers\Admin\Project\ProjectController::class);
     Route::resource('/tasks', \App\Http\Controllers\Admin\Task\TaskController::class);
     Route::resource('/users', \App\Http\Controllers\Admin\User\UserController::class);
+
 });
+
 
 require __DIR__ . '/auth.php';
