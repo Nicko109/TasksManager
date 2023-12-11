@@ -20,7 +20,7 @@ class TaskController extends Controller
      */
     public function index()
     {
-        $tasks = TaskService::index();
+        $tasks = Task::all();
 
         return view('tasks.index', compact('tasks'));
     }

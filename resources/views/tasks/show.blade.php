@@ -39,6 +39,7 @@
                                     <th>Заказчик</th>
                                     <th>Исполнитель</th>
                                     <th>Проект</th>
+                                    <th>Статус</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -49,6 +50,7 @@
                                     <td class="text-wrap">{{ $task->user->name }}</td>
                                     <td class="text-wrap">{{ $task->performer->name }}</td>
                                     <td class="text-wrap">{{ $task->project->title }}</td>
+                                    <td class="text-wrap">{{ $task->getStatus()[$task->status] }}</td>
                                 </tr>
                                 </tbody>
                             </table>

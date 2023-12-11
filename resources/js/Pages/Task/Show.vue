@@ -11,6 +11,7 @@
                 <p><b>Заказчик:</b> {{ user.name }}</p>
                 <p><b>Исполнитель:</b> {{ performer.name }}</p>
                 <p><b>Наименование проекта:</b> {{ project.title }}</p>
+                <p><b>Статус:</b> {{ getStatus(task.status) }}</p>
             </div>
         <div class="flex justify-between items-center mt-2">
             <p class="text-right text-sm text-slate-500">{{task.date}}</p>
@@ -41,7 +42,7 @@
                    class="inline-block bg-sky-600 px-3 py-2 text-white">Комментировать</a>
             </div>
         </div>
-        <div v-if="isAdmin" class="form-group my-4 flex items-center">
+        <div  class="form-group my-4 flex items-center">
             <Link :href="route('tasks.edit', task.id)" class="inline-block bg-green-600 px-3 py-2 text-white">Редактировать</Link>
             <Link as="button" method="delete" :href="route('tasks.destroy', task.id)" class="inline-block bg-rose-600 px-3 py-2 text-white ml-2">Удалить</Link>
         </div>
@@ -90,6 +91,16 @@ export default {
                     this.isShowed = true
                 })
         },
+        getStatus(status) {
+            const statusMap = {
+                0: 'В работе',
+                1: 'На проверке',
+                2: 'Выполнено',
+            };
+
+            return statusMap[status];
+        },
+
     },
 
     layout: MainLayout

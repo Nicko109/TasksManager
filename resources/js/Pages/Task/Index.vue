@@ -1,6 +1,6 @@
 <template>
     <div class="max-w-screen-md w-full mx-auto">
-        <div v-if="isAdmin" class="form-group mb-4 flex items-center justify-between mb-6 pb-6 border-b border-gray-400">
+        <div class="form-group mb-4 flex items-center justify-between mb-6 pb-6 border-b border-gray-400">
             <h1 style="color: blue">Задачи</h1>
             <Link :href="route('tasks.create')" class="inline-block bg-sky-600 px-3 py-2 text-white">Добавить</Link>
         </div>
@@ -13,6 +13,7 @@
             <p><b>Заказчик:</b> {{ task.user.name }}</p>
             <p><b>Исполнитель:</b> {{ task.performer.name }}</p>
             <p><b>Наименование проекта:</b> {{ task.project.title }}</p>
+            <p><b>Статус:</b> {{ getStatus(task.status) }}</p>
             <div class="flex justify-between items-center mt-2">
                 <p class="text-right text-sm text-slate-500">{{ task.date }}</p>
             </div>
@@ -41,7 +42,7 @@
                        class="inline-block bg-sky-600 px-3 py-2 text-white">Комментировать</a>
                 </div>
             </div>
-            <div v-if="isAdmin" class="form-group my-4 flex items-center">
+            <div class="form-group my-4 flex items-center">
                 <Link :href="route('tasks.edit', task.id)" class="inline-block bg-green-600 px-3 py-2 text-white">
                     Редактировать
                 </Link>
@@ -96,6 +97,15 @@ export default {
                     this.comments = res.data.data
                     this.isShowed = true
                 })
+        },
+        getStatus(status) {
+            const statusMap = {
+                0: 'В работе',
+                1: 'На проверке',
+                2: 'Выполнено',
+            };
+
+            return statusMap[status];
         },
     },
 

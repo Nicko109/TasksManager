@@ -11,7 +11,11 @@ class ProjectService
 {
     public static function index()
     {
-        $projects = Project::latest()->get();
+        $user = Auth::user();
+
+        $projects = Project::where('user_id', $user->id)
+            ->orWhere('performer_id', $user->id)
+            ->get();
 
         return $projects;
     }
@@ -38,4 +42,6 @@ class ProjectService
     {
         return $project->delete();
     }
+
+
 }

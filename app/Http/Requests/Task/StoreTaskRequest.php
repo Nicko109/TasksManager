@@ -24,7 +24,7 @@ class StoreTaskRequest extends FormRequest
         return [
             'title' => 'required|string',
             'deadline' => 'required|date',
-            'file' => 'nullable|file',
+            'file' => 'nullable',
             'project_id' => 'required|integer|exists:projects,id',
             'performer_id' => 'required|string|exists:users,id',
         ];

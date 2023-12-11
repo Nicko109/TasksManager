@@ -47,7 +47,7 @@ class TaskController extends Controller
      */
     public function create()
     {
-        $this->authorize('create', Task::class);
+
         $users = User::all();
         $projects = Project::all();
         return inertia('Task/Create', compact('users', 'projects'));
@@ -58,7 +58,7 @@ class TaskController extends Controller
      */
     public function store(StoreTaskRequest $request)
     {
-        $this->authorize('create', Task::class);
+
         $data = $request->validated();
 
         $task = TaskService::store($data);
@@ -87,7 +87,7 @@ class TaskController extends Controller
      */
     public function edit(Task $task)
     {
-        $this->authorize('update', $task);
+
         $users = User::all();
         $projects = Project::all();
 
@@ -99,7 +99,7 @@ class TaskController extends Controller
      */
     public function update(UpdateTaskRequest $request, Task $task)
     {
-        $this->authorize('update', $task);
+
         $data = $request->validated();
 
 

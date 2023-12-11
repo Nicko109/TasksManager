@@ -14,6 +14,18 @@ class Task extends Model
     protected $guarded = false;
     protected $withCount = ['comments'];
 
+    const STATUS_IN_PROGRESS = 0;
+    const STATUS_IN_REVIEW = 1;
+    const STATUS_IN_COMPLETED = 2;
+
+    public function getStatus()
+    {
+        return [
+        self::STATUS_IN_PROGRESS => 'В работе',
+        self::STATUS_IN_REVIEW => 'На проверке',
+        self::STATUS_IN_COMPLETED => 'Выполнено',
+        ];
+    }
 
 
     public function project(){

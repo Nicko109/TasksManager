@@ -12,6 +12,7 @@ use App\Http\Requests\Project\UpdateProjectRequest;
 use App\Models\ProjectComment;
 use App\Models\User;
 use App\Services\ProjectService;
+use Illuminate\Support\Facades\Auth;
 use Mockery\Matcher\Not;
 
 class ProjectController extends Controller
@@ -21,8 +22,13 @@ class ProjectController extends Controller
      */
     public function index()
     {
+        $user = Auth::user();
+
         $this->authorize('viewAny', Project::class);
+
         $projects = ProjectService::index();
+
+
 
         $projects->each(function ($project) {
             $user = $project->user;
@@ -38,7 +44,7 @@ class ProjectController extends Controller
      */
     public function create()
     {
-        $this->authorize('create', Project::class);
+
         $users = User::all();
         return inertia('Project/Create', compact('users'));
     }
@@ -48,7 +54,7 @@ class ProjectController extends Controller
      */
     public function store(StoreProjectRequest $request)
     {
-        $this->authorize('create', Project::class);
+
         $data = $request->validated();
 
         $project = ProjectService::store($data);
@@ -77,7 +83,7 @@ class ProjectController extends Controller
      */
     public function edit(Project $project)
     {
-        $this->authorize('update', $project);
+
         $users = User::all();
 
         return inertia('Project/Edit', compact('project', 'users'));
@@ -88,7 +94,7 @@ class ProjectController extends Controller
      */
     public function update(UpdateProjectRequest $request, Project $project)
     {
-        $this->authorize('update', $project);
+
         $data = $request->validated();
         ProjectService::update($project, $data);
 

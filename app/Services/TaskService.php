@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\LikedPost;
+use App\Models\Project;
 use App\Models\Task;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -11,16 +12,24 @@ class TaskService
 {
     public static function index()
     {
-        $tasks = Task::latest()->get();
+        $user = Auth::user();
+
+        $tasks = Task::where('user_id', $user->id)
+            ->orWhere('performer_id', $user->id)
+            ->get();
 
         return $tasks;
     }
 
     public static function store(array $data) : Task
     {
+        if (isset($data['file'])) {
         $path = Storage::disk('public')->put('task' , $data['file']);
         $fullPath = Storage::disk('public')->url($path);
         $data['file'] = $fullPath;
+        } else {
+            unset($data['file']);
+        }
         $data['user_id'] = auth()->user()->id;
         return Task::create($data);
     }

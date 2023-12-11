@@ -11,7 +11,7 @@
         <div class="flex justify-between items-center mt-2">
             <p class="text-right text-sm text-slate-500">{{project.date}}</p>
         </div>
-        <div v-if="isAdmin" class="form-group my-4 flex items-center">
+        <div  class="form-group my-4 flex items-center">
             <Link :href="route('projects.edit', project.id)" class="inline-block bg-green-600 px-3 py-2 text-white">
                 Редактировать
             </Link>

@@ -29,9 +29,6 @@ class ProjectPolicy
      */
     public function create(User $user): bool
     {
-        if ($user->is_admin) {
-            return true;
-        }
 
         return false;
     }
@@ -41,9 +38,7 @@ class ProjectPolicy
      */
     public function update(User $user, Project $note): bool
     {
-        if ($user->is_admin) {
-            return true;
-        }
+
 
         return false;
     }
@@ -53,9 +48,7 @@ class ProjectPolicy
      */
     public function delete(User $user, Project $note): bool
     {
-        if ($user->is_admin) {
-            return true;
-        }
+
 
         return false;
     }
