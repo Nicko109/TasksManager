@@ -23,7 +23,7 @@ class CommentRequest extends FormRequest
     {
         return [
             'body' => 'required|string',
-            'task_id' => 'required|exists:tasks,id',
+            'task_id' => 'nullable|exists:tasks,id',
         ];
     }
 

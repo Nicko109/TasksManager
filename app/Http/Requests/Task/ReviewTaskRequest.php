@@ -22,7 +22,11 @@ class ReviewTaskRequest extends FormRequest
     public function rules(): array
     {
         return [
-
+//            'status' => 'required|in:0,1,2',
+//            'title' => 'nullable|string',
+//            'deadline' => 'nullable|date',
+//            'file' => 'nullable', // возможно, нужны дополнительные правила валидации для файла
+//            'project_id' => 'nullable|integer|exists:projects,id',
         ];
     }
 

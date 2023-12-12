@@ -61,7 +61,6 @@ import axios from "axios"; // добавлен импорт
 
 export default {
     name: "Index",
-
     props: ['tasks', "isAdmin"],
     data() {
         return {
@@ -71,14 +70,10 @@ export default {
             isShowed: false,
         }
     },
-
-    components: {Link},
-
+    components: { Link },
     methods: {
-
-
         storeComment(task) {
-            axios.post(`/tasks/${task.id}/comment`, {body: this.commentsData[task.id] || ""})
+            axios.post(`/tasks/${task.id}/comment`, { body: this.commentsData[task.id] || "" })
                 .then(res => {
                     this.commentsData[task.id] = "";
                     this.comments.unshift(res.data.data)
@@ -89,7 +84,6 @@ export default {
                     this.errors = { ...this.errors, [task.id]: e.response.data.errors };
                 })
         },
-
         getComments(task) {
             axios.get(`/tasks/${task.id}/comment`)
                 .then(res => {
@@ -104,12 +98,11 @@ export default {
                 1: 'На проверке',
                 2: 'Выполнено',
             };
-
             return statusMap[status];
         },
-    },
 
-    layout: MainLayout
+    },
+    // ... остальной ваш код ...
 }
 </script>
 

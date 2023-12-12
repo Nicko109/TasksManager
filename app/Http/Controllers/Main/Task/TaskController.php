@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Main\Task;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Task\CommentRequest;
+use App\Http\Requests\Task\ReviewTaskRequest;
 use App\Http\Requests\Task\StoreTaskRequest;
 use App\Http\Requests\Task\UpdateTaskRequest;
 use App\Http\Resources\Comment\CommentResource;
@@ -15,6 +16,7 @@ use App\Models\Task;
 use App\Models\User;
 use App\Services\TaskService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class TaskController extends Controller
 {
@@ -79,7 +81,10 @@ class TaskController extends Controller
         $performer = $task->performer;
         $project = $task->project;
 
-        return inertia('Task/Show', compact('task', 'isAdmin', 'user', 'performer', 'project'));
+        $isCustomer = auth()->user()->id === $task->user_id;
+        $isPerformer = auth()->user()->id === $task->performer_id;
+
+        return inertia('Task/Show', compact('task', 'isAdmin', 'user', 'performer', 'project', 'isCustomer', 'isPerformer'));
     }
 
     /**
@@ -140,6 +145,33 @@ class TaskController extends Controller
         $comments = $task->comments()->latest()->get();
 
         return CommentResource::collection($comments);
+    }
+
+    public function review(ReviewTaskRequest $request, Task $task)
+    {
+        $data = $request->validated();
+
+        TaskService::review($task, $data);
+
+        return $data;
+    }
+
+    public function complete(ReviewTaskRequest $request, Task $task)
+    {
+        $data = $request->validated();
+
+        TaskService::complete($task, $data);
+
+        return $data;
+    }
+
+    public function work(ReviewTaskRequest $request, Task $task)
+    {
+        $data = $request->validated();
+
+        TaskService::work($task, $data);
+
+        return $data;
     }
 
 

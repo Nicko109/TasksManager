@@ -45,6 +45,12 @@ Route::middleware('auth')->group(function () {
     Route::resource('/tasks', \App\Http\Controllers\Main\Task\TaskController::class);
     Route::post('/tasks/{task}/comment', [\App\Http\Controllers\Main\Task\TaskController::class, 'comment']);
     Route::get('/tasks/{task}/comment', [\App\Http\Controllers\Main\Task\TaskController::class, 'commentList']);
+    Route::patch('/tasks/{task}/review', [\App\Http\Controllers\Main\Task\TaskController::class, 'review'])
+        ->name('tasks.review');
+    Route::patch('/tasks/{task}/complete', [\App\Http\Controllers\Main\Task\TaskController::class, 'complete'])
+        ->name('tasks.complete');
+    Route::patch('/tasks/{task}/work', [\App\Http\Controllers\Main\Task\TaskController::class, 'work'])
+        ->name('tasks.work');
 
 });
 

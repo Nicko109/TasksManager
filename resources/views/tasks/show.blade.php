@@ -24,29 +24,33 @@
             <!-- Small boxes (Stat box) -->
             <div class="row">
                 <div class="col-12">
+
                     <!-- /.row --> <div class="mr-4 mb-4">
                         <a href="{{ route('admin.tasks.index') }}" class="btn btn-primary">Назад</a>
+                        <div class="card-header d-flex p-3">
                         <form action="{{ route('admin.tasks.review', $task->id) }}" method="post">
                             @csrf
                             @method('patch')
-                            <div class="form-group mt-3">
+                            <div class="form-group mt-3 mr-4 mb-4">
                                 <input type="submit" class="btn btn-warning" value="На проверку">
                             </div>
                         </form>
                         <form action="{{ route('admin.tasks.complete', $task->id) }}" method="post">
                             @csrf
                             @method('patch')
-                            <div class="form-group mt-3">
+                            <div class="form-group mt-3 mr-4 mb-4">
                                 <input type="submit" class="btn btn-success" value="Подтвердить">
                             </div>
                         </form>
                         <form action="{{ route('admin.tasks.work', $task->id) }}" method="post">
                             @csrf
                             @method('patch')
-                            <div class="form-group mt-3">
+                            <div class="form-group mt-3 mr-4 mb-4">
                                 <input type="submit" class="btn btn-danger" value="Отказать">
                             </div>
+
                         </form>
+                        </div>
                     </div>
                     <div class="card">
 

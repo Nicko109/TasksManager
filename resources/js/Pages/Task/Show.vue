@@ -13,21 +13,21 @@
                 <p><b>Наименование проекта:</b> {{ project.title }}</p>
                 <p><b>Статус:</b> {{ getStatus(task.status) }}</p>
             </div>
-        <div class="flex justify-between items-center mt-2">
-            <p class="text-right text-sm text-slate-500">{{task.date}}</p>
-        </div>
-        <div v-if="task.comments_count > 0" class="mt-4">
-            <p class="pb-4 text-xl link-text" v-if="!isShowed" @click="getComments(task)">Показать
-                {{ task.comments_count }} комментарий</p>
-            <p class="pb-4 text-xl link-text" v-if="isShowed" @click="isShowed = false">Закрыть</p>
-            <div v-if="comments && isShowed">
-                <div v-for="comment in comments" class="mt-4 pt-4 border-t border-gray-300">
-                    <p class="text-sm">{{ comment.user.name }}</p>
-                    <p style="word-break: break-word;">{{ comment.body }}</p>
-                    <p class="text-right text-sm text-slate-500">{{ comment.date }}</p>
+            <div class="flex justify-between items-center mt-2">
+                <p class="text-right text-sm text-slate-500">{{task.date}}</p>
+            </div>
+            <div v-if="task.comments_count > 0" class="mt-4">
+                <p class="pb-4 text-xl link-text" v-if="!isShowed" @click="getComments(task)">Показать
+                    {{ task.comments_count }} комментарий</p>
+                <p class="pb-4 text-xl link-text" v-if="isShowed" @click="isShowed = false">Закрыть</p>
+                <div v-if="comments && isShowed">
+                    <div v-for="comment in comments" class="mt-4 pt-4 border-t border-gray-300">
+                        <p class="text-sm">{{ comment.user.name }}</p>
+                        <p style="word-break: break-word;">{{ comment.body }}</p>
+                        <p class="text-right text-sm text-slate-500">{{ comment.date }}</p>
+                    </div>
                 </div>
             </div>
-        </div>
         </div>
         <div class="mt-4">
             <div class=" mb-3">
@@ -45,8 +45,17 @@
         <div  class="form-group my-4 flex items-center">
             <Link :href="route('tasks.edit', task.id)" class="inline-block bg-green-600 px-3 py-2 text-white">Редактировать</Link>
             <Link as="button" method="delete" :href="route('tasks.destroy', task.id)" class="inline-block bg-rose-600 px-3 py-2 text-white ml-2">Удалить</Link>
+            <button v-if="isCustomer" @click="handleWork(task)" class="inline-block bg-yellow-500 px-3 py-2 text-white ml-2">
+                Отклонить
+            </button>
+            <button v-if="isPerformer" @click="handleReview(task)" class="inline-block bg-blue-500 px-3 py-2 text-white ml-2">
+                На проверку
+            </button>
+            <button v-if="isCustomer" @click="handleComplete(task)" class="inline-block bg-green-500 px-3 py-2 text-white ml-2">
+                Подтвердить
+            </button>
         </div>
-        </div>
+    </div>
 </template>
 
 <script>
@@ -57,7 +66,7 @@ import axios from "axios";
 export default {
     name: "Show",
 
-    props:['task', "isAdmin", 'user', 'performer', 'project'],
+    props:['task', "isAdmin", 'user', 'performer', 'project', 'isCustomer', 'isPerformer'],
     data() {
         return {
             body: '',
@@ -100,6 +109,33 @@ export default {
 
             return statusMap[status];
         },
+        handleReview(task) {
+            axios.patch(`/tasks/${task.id}/review`)
+                .then((res) => {
+                    this.task.status = 1
+                })
+                .catch((error) => {
+                    console.error(error);
+                    // Обработка ошибок, если необходимо
+                });
+        },
+
+        handleComplete(task) {
+            axios.patch(`/tasks/${task.id}/complete`)
+                .then((res) => {
+                    this.task.status = 2
+                })
+        },
+
+        handleWork(task) {
+            axios.patch(`/tasks/${task.id}/work`)
+                .then((res) => {
+                    this.task.status = 0
+                })
+        },
+
+
+
 
     },
 
