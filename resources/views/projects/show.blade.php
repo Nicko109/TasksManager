@@ -47,6 +47,29 @@
                                 </tr>
                                 </tbody>
                             </table>
+                            <table class="table table-hover text-wrap mt-4">
+                                <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Задача</th>
+                                    <th>Дата выполнения</th>
+                                    <th>Заказчик</th>
+                                    <th>Исполнитель</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    @foreach($tasks as $task)
+                                    <td>{{ $task->id }}</td>
+                                    <td>{{ $task->title }}</td>
+                                    <td>{{ $task->formattedDeadline }}</td>
+                                    <td>{{ $task->user->name }}</td>
+                                    <td>{{ $task->performer->name }}</td>
+
+                                </tr>
+                                @endforeach
+                                </tbody>
+                            </table>
                         </div>
 
                     </div>

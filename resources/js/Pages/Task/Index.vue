@@ -1,4 +1,5 @@
 <template>
+
     <div class="max-w-screen-md w-full mx-auto">
         <div class="form-group mb-4 flex items-center justify-between mb-6 pb-6 border-b border-gray-400">
             <Link :href="route('tasks.index')" class="inline-block bg-green-600 px-3 py-2 text-white">Задачи</Link>
