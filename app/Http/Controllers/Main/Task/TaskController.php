@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Main\Task;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Task\CommentRequest;
+use App\Http\Requests\Task\FilterTaskRequest;
 use App\Http\Requests\Task\ReviewTaskRequest;
 use App\Http\Requests\Task\StoreTaskRequest;
 use App\Http\Requests\Task\UpdateTaskRequest;
@@ -23,11 +24,24 @@ class TaskController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(FilterTaskRequest $request)
     {
-        $this->authorize('viewAny', Task::class);
 
+        $this->authorize('viewAny', Task::class);
+        $data = $request->validated();
+        $status = $request->input('status');
         $tasks = TaskService::index();
+
+        if ($status) {
+            if ($status == 'in_progress') {
+                $tasks->where('status', 0);
+            } elseif ($status == 'in_review') {
+                $tasks->where('status', 1);
+            } elseif ($status == 'completed') {
+                $tasks->where('status', 2);
+            }
+        }
+
 
         $tasks->each(function ($task) {
             $task->formattedDeadline = $task->getFormattedDeadlineAttribute();
@@ -40,7 +54,7 @@ class TaskController extends Controller
 
 
 
-        return inertia('Task/Index', compact('tasks', 'isAdmin'));
+        return inertia('Task/Index', compact('tasks', 'isAdmin', 'status'));
 
     }
 
@@ -51,7 +65,7 @@ class TaskController extends Controller
     {
 
         $users = User::all();
-        $projects = Project::all();
+        $projects = auth()->user()->projects;
         return inertia('Task/Create', compact('users', 'projects'));
     }
 
@@ -94,7 +108,7 @@ class TaskController extends Controller
     {
 
         $users = User::all();
-        $projects = Project::all();
+        $projects = auth()->user()->projects;
 
         return inertia('Task/Edit', compact('task', 'users', 'projects'));
     }
@@ -173,6 +187,5 @@ class TaskController extends Controller
 
         return $data;
     }
-
 
 }

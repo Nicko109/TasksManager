@@ -16,7 +16,7 @@ class TaskService
 
         $tasks = Task::where('user_id', $user->id)
             ->orWhere('performer_id', $user->id)
-            ->get();
+            ->latest()->get();
 
         return $tasks;
     }

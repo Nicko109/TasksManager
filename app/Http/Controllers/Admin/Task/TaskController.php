@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin\Task;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Task\FilterTaskRequest;
 use App\Http\Requests\Task\ReviewTaskRequest;
 use App\Models\Comment;
 use App\Models\Project;
@@ -11,6 +12,7 @@ use App\Http\Requests\Task\StoreTaskRequest;
 use App\Http\Requests\Task\UpdateTaskRequest;
 use App\Models\User;
 use App\Services\TaskService;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Mockery\Matcher\Not;
 
@@ -19,9 +21,25 @@ class TaskController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(FilterTaskRequest $request)
     {
-        $tasks = Task::all();
+        $data = $request->validated();
+
+        $status = $request->input('status');
+
+        $tasks = Task::latest();
+
+        if ($status) {
+            if ($status == 'in_progress') {
+                $tasks->where('status', 0);
+            } elseif ($status == 'in_review') {
+                $tasks->where('status', 1);
+            } elseif ($status == 'completed') {
+                $tasks->where('status', 2);
+            }
+        }
+
+        $tasks = $tasks->get();
 
         return view('tasks.index', compact('tasks'));
     }

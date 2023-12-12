@@ -26,7 +26,7 @@ class ProjectService
     public static function store(array $data) : Project
     {
         $data['user_id'] = auth()->user()->id;
-        return Project::create($data);
+        return Project::firstOrCreate($data);
     }
 
 

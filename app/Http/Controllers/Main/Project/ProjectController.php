@@ -10,6 +10,7 @@ use App\Models\Project;
 use App\Http\Requests\Project\StoreProjectRequest;
 use App\Http\Requests\Project\UpdateProjectRequest;
 use App\Models\ProjectComment;
+use App\Models\Task;
 use App\Models\User;
 use App\Services\ProjectService;
 use Illuminate\Support\Facades\Auth;
@@ -71,11 +72,16 @@ class ProjectController extends Controller
 
         $user = $project->user;
         $performer = $project->performer;
-
+        $tasks = $project->tasks;
+        $tasks->each(function ($task) {
+            $task->formattedDeadline = $task->getFormattedDeadlineAttribute();
+            $user = $task->user;
+            $performer = $task->performer;
+        });
         $isAdmin = auth()->user()->is_admin;
 
 
-        return inertia('Project/Show', compact('project', 'isAdmin', 'performer', 'user'));
+        return inertia('Project/Show', compact('project', 'isAdmin', 'performer', 'user', 'tasks'));
     }
 
     /**
@@ -107,7 +113,6 @@ class ProjectController extends Controller
      */
     public function destroy(Project $project)
     {
-        $this->authorize('delete', $project);
         ProjectService::destroy($project);
 
         return redirect()->route('projects.index');

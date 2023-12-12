@@ -26,7 +26,11 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <a href="{{ route('admin.tasks.create') }}" class="btn btn-primary">Добавить</a>
+                                <a href="{{ route('admin.tasks.index') }}" >Все задачи</a>
+                                <a href="{{ route('admin.tasks.index', ['status' => 'in_progress']) }}" >В работе</a>
+                                <a href="{{ route('admin.tasks.index', ['status' => 'in_review']) }}" >На проверке</a>
+                                <a href="{{ route('admin.tasks.index', ['status' => 'completed']) }}" >Выполненные</a>
+                            <a href="{{ route('admin.tasks.create') }}" class="btn btn-primary ml-5">Добавить</a>
                         </div>
 
                         <div class="card-body table-responsive p-0">

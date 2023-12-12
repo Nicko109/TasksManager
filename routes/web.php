@@ -36,12 +36,10 @@ Route::middleware('auth')->group(function () {
 });
 
 
+
 Route::middleware('auth')->group(function () {
     Route::get('/main', [\App\Http\Controllers\Main\Main\IndexController::class, 'index'])->name('main.index');
-
     Route::resource('/projects', \App\Http\Controllers\Main\Project\ProjectController::class);
-
-
     Route::resource('/tasks', \App\Http\Controllers\Main\Task\TaskController::class);
     Route::post('/tasks/{task}/comment', [\App\Http\Controllers\Main\Task\TaskController::class, 'comment']);
     Route::get('/tasks/{task}/comment', [\App\Http\Controllers\Main\Task\TaskController::class, 'commentList']);

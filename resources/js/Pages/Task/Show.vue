@@ -48,8 +48,11 @@
             <button v-if="isCustomer" @click="handleWork(task)" class="inline-block bg-yellow-500 px-3 py-2 text-white ml-2">
                 Отклонить
             </button>
-            <button v-if="isPerformer" @click="handleReview(task)" class="inline-block bg-blue-500 px-3 py-2 text-white ml-2">
+            <button v-if="isPerformer && task.status === 0" @click="handleReview(task)" class="inline-block bg-blue-500 px-3 py-2 text-white ml-2">
                 На проверку
+            </button>
+            <button v-if="isPerformer && task.status === 1" @click="handleReview(task)" class="inline-block bg-blue-500 px-3 py-2 text-white ml-2">
+                Вернуть с проверки
             </button>
             <button v-if="isCustomer" @click="handleComplete(task)" class="inline-block bg-green-500 px-3 py-2 text-white ml-2">
                 Подтвердить
@@ -112,7 +115,7 @@ export default {
         handleReview(task) {
             axios.patch(`/tasks/${task.id}/review`)
                 .then((res) => {
-                    this.task.status = 1
+                    this.task.status = this.task.status === 0 ? 1 : 0;
                 })
                 .catch((error) => {
                     console.error(error);
