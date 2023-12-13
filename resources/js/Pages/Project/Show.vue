@@ -63,8 +63,6 @@ export default {
     },
 
     components: {Link},
-
-
     layout: MainLayout
 }
 </script>

@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Main\Task;
 
 use App\Http\Controllers\Controller;
+use App\Http\Filters\TaskFilter;
 use App\Http\Requests\Task\CommentRequest;
 use App\Http\Requests\Task\FilterTaskRequest;
+use App\Http\Requests\Task\IndexTaskRequest;
 use App\Http\Requests\Task\ReviewTaskRequest;
 use App\Http\Requests\Task\StoreTaskRequest;
 use App\Http\Requests\Task\UpdateTaskRequest;
@@ -24,23 +26,13 @@ class TaskController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(FilterTaskRequest $request)
+    public function index(IndexTaskRequest $request)
     {
-
-        $this->authorize('viewAny', Task::class);
         $data = $request->validated();
-        $status = $request->input('status');
-        $tasks = TaskService::index();
+        $filter = app()->make(TaskFilter::class, ['queryParams' => $data]);
 
-        if ($status) {
-            if ($status == 'in_progress') {
-                $tasks->where('status', 0);
-            } elseif ($status == 'in_review') {
-                $tasks->where('status', 1);
-            } elseif ($status == 'completed') {
-                $tasks->where('status', 2);
-            }
-        }
+        $tasks = Task::filter($filter)->get();
+
 
 
         $tasks->each(function ($task) {
@@ -53,8 +45,7 @@ class TaskController extends Controller
         $isAdmin = auth()->user()->is_admin;
 
 
-
-        return inertia('Task/Index', compact('tasks', 'isAdmin', 'status'));
+        return inertia('Task/Index', compact('tasks', 'isAdmin'));
 
     }
 

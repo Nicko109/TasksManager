@@ -3,6 +3,25 @@
     <div class="max-w-screen-md w-full mx-auto">
         <div class="form-group mb-4 flex items-center justify-between mb-6 pb-6 border-b border-gray-400">
             <Link :href="route('tasks.index')" class="inline-block bg-green-600 px-3 py-2 text-white">Задачи</Link>
+            <div>
+            <div>
+                <h1>Выберите проект</h1>
+                <form>
+                    <div v-for="status in filterList.statuses">
+                        <input :value="status" v-model="statuses" type="checkbox" :id="status">
+                        <label :for="status">{{ status}}</label>
+                    </div>
+                </form>
+            </div>
+<!--            <div>-->
+<!--                <h1>Выберите статус задачи</h1>-->
+<!--             <ul>-->
+<!--                 <li v-for="status in filterList.statuses" >-->
+<!--                     <a @click.prevent="addStatus" href="#"><span>{{ status }}</span></a></li>-->
+<!--             </ul>-->
+<!--            </div>-->
+                <button @click.prevent="getTaskList" type="submit" class="inline-block bg-rose-600 px-3 py-2 text-white ml-2">Фильтр</button>
+            </div>
 
             <Link :href="route('tasks.create')" class="inline-block bg-sky-600 px-3 py-2 text-white">Добавить</Link>
         </div>
@@ -64,16 +83,44 @@ import axios from "axios"; // добавлен импорт
 export default {
     name: "Index",
     props: ['tasks', "isAdmin"],
+
+    mounted() {
+        this.getFilterList()
+    },
     data() {
         return {
             commentsData: {},
             comments: [],
             errors: [],
+            projects: [],
+            statuses: [],
+            filterList: [],
             isShowed: false,
         }
     },
     components: { Link },
     methods: {
+        // addStatus()
+        // {
+        //
+        // },
+        getTaskList() {
+            axios.get(`/tasks`, {
+                params: {
+                    statuses: this.statuses
+                }
+
+            })
+            console.log(this.projects);
+        },
+        getFilterList() {
+            axios.get(`/tasks/filters/${status}`)
+                .then(res => {
+                    this.filterList = res.data
+                    console.log(res);
+                })
+        },
+
         storeComment(task) {
             axios.post(`/tasks/${task.id}/comment`, { body: this.commentsData[task.id] || "" })
                 .then(res => {
@@ -90,7 +137,7 @@ export default {
             axios.get(`/tasks/${task.id}/comment`)
                 .then(res => {
                     this.commentsData[task.id] = "";
-                    this.comments = res.data.data
+                    this.comments = res.data
                     this.isShowed = true
                 })
         },
@@ -102,6 +149,7 @@ export default {
             };
             return statusMap[status];
         },
+
 
     },
     layout: MainLayout
