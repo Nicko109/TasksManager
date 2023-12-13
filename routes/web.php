@@ -40,7 +40,7 @@ Route::get('/tasks/filters/{status?}', [\App\Http\Controllers\Main\Task\FilterLi
     ->name('tasks.filters');
 
 
-Route::middleware('auth')->group(function () {
+//Route::middleware('auth')->group(function () {
     Route::get('/main', [\App\Http\Controllers\Main\Main\IndexController::class, 'index'])->name('main.index');
     Route::resource('/projects', \App\Http\Controllers\Main\Project\ProjectController::class);
 
@@ -54,7 +54,7 @@ Route::middleware('auth')->group(function () {
     Route::patch('/tasks/{task}/work', [\App\Http\Controllers\Main\Task\TaskController::class, 'work'])
         ->name('tasks.work');
 
-});
+//});
 
 
 Route::group([

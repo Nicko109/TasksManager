@@ -109,7 +109,6 @@ export default {
                 params: {
                     statuses: this.statuses
                 }
-
             })
             console.log(this.projects);
         },

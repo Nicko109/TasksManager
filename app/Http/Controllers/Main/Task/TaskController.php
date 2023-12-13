@@ -31,7 +31,7 @@ class TaskController extends Controller
         $data = $request->validated();
         $filter = app()->make(TaskFilter::class, ['queryParams' => $data]);
 
-        $tasks = Task::filter($filter)->get();
+        $tasks = Task::filter($filter)->latest()->get();
 
 
 
@@ -42,11 +42,11 @@ class TaskController extends Controller
             $project = $task->project;
         });
 
-        $isAdmin = auth()->user()->is_admin;
+        $isAdmin = auth()->user() ? auth()->user()->is_admin : false;
 
 
-        return inertia('Task/Index', compact('tasks', 'isAdmin'));
-
+//        return inertia('Task/Index', compact('tasks', 'isAdmin'));
+        return response()->json(['data' => $tasks]);
     }
 
     /**
